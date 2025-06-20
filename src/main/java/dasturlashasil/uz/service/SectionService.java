@@ -1,16 +1,11 @@
 package dasturlashasil.uz.service;
 
 
-//
-//import kun.uz.Dto.LangResponseDto;
-//import kun.uz.Dto.SectionDto;
-//import kun.uz.Entity.SectionEntity;
-//import kun.uz.Enumlist.LanguageList;
-////import kun.uz.entity.SectionEntity;
-//import kun.uz.exceptionsl.NotFoundException;
-//import kun.uz.repository.SectionRepository;
+import dasturlashasil.uz.Dto.LangResponseDto;
 import dasturlashasil.uz.Dto.SectionDto;
+import dasturlashasil.uz.Enums.LanguageList;
 import dasturlashasil.uz.entities.SectionEntity;
+import dasturlashasil.uz.exceptons.NotFoundException;
 import dasturlashasil.uz.repository.SectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +35,7 @@ public class SectionService {
         entity.setNameEn(dto.getNameEn());
         entity.setSectionKey(dto.getSectionKey());
         entity.setCreatedDate(LocalDateTime.now());
-        entity.setImageId(dto.getImageId());
+//        entity.setImageId(dto.getImageId());
         sectionRepository.save(entity);
         dto.setId(entity.getId());
         dto.setCreatedDate(entity.getCreatedDate());
@@ -61,7 +56,7 @@ public class SectionService {
         entity.setSectionKey(newDto.getSectionKey());
         newDto.setId(entity.getId());
         newDto.setCreatedDate(entity.getCreatedDate());
-        newDto.setImageId(entity.getImageId());
+//        newDto.setImageId(entity.getImageId());
         sectionRepository.save(entity);
         return newDto;
     }
@@ -96,7 +91,7 @@ public class SectionService {
         dto.setNameEn(entity.getNameEn());
         dto.setSectionKey(entity.getSectionKey());
         dto.setCreatedDate(entity.getCreatedDate());
-        dto.setImageId(entity.getImageId());
+//        dto.setImageId(entity.getImageId());
         return dto;
     }
 

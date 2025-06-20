@@ -2,6 +2,10 @@ package dasturlashasil.uz.controller;
 
 
 
+import dasturlashasil.uz.Dto.LangResponseDto;
+import dasturlashasil.uz.Dto.SectionDto;
+import dasturlashasil.uz.Enums.LanguageList;
+import dasturlashasil.uz.service.SectionService;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +18,8 @@ import java.util.List;
 @Getter
 @Setter
 @RestController
-@RequestMapping("/section")
+@RequestMapping("/api/section")
+
 public class SectionController {
 
 
