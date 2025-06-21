@@ -66,6 +66,7 @@ public class SectionService {
                 .orElseThrow(() -> new NotFoundException("Section not found"));
         int i = sectionRepository.updateVisibleById(entity.getId());
         return i == 1;
+
     }
 
     public List<SectionDto> getAllByOrder() {
