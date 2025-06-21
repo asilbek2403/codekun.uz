@@ -2,12 +2,16 @@ package dasturlashasil.uz.controller;
 
 
 import dasturlashasil.uz.Dto.profile.ProfileDto;
+import dasturlashasil.uz.Dto.regionD.RegionLangDto;
+import dasturlashasil.uz.Enums.LanguageList;
 import dasturlashasil.uz.service.ProfileService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/profile")
@@ -54,8 +58,9 @@ public class ProfileController {
 //
 //    // /api/v1/category/lang?language=uz
 //    @GetMapping("/lang")
-//    public ResponseEntity<List<ProfileDto>> getByLang(@RequestHeader(name = "Accept-Language", defaultValue = "uz") AppLanguageEnum language) {
-//        return ResponseEntity.ok(profileService.getA(language));
+//    public ResponseEntity<List<ProfileDto>> getByLang(@RequestHeader(name = "Accept-Language", defaultValue = "uz") LanguageList language) {
+//        List<ProfileDto> list = profileService.getAllLang(language);
+//        return ResponseEntity.ok(list);
 //    }
 
 }

@@ -3,8 +3,11 @@ package dasturlashasil.uz.service;
 
 import dasturlashasil.uz.Dto.profile.ProfileDto;
 import dasturlashasil.uz.Dto.profile.ProfileUpdateDto;
+import dasturlashasil.uz.Dto.regionD.RegionLangDto;
+import dasturlashasil.uz.Enums.LanguageList;
 import dasturlashasil.uz.Enums.ProfileStatusEnum;
 import dasturlashasil.uz.entities.ProfileEntity;
+import dasturlashasil.uz.entities.RegionEntity;
 import dasturlashasil.uz.exceptons.AppBadException;
 import dasturlashasil.uz.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,5 +139,27 @@ public class ProfileService {
 //        return null;
 //    }
 
+
+
+//    Profile da yo'q bizga LAng kerakmas!!!
+//    public List<ProfileDto> getAllLang(LanguageList lana) {
+//
+//        List<ProfileDto> profileLangDtoList = new ArrayList<>();
+//
+//        List<ProfileEntity> profileEntityList= profileRepository.findAllByVisibleTrue();
+//
+//        for ( ProfileEntity regionEntity : profileEntityList) {
+//            ProfileDto regionLangDto = new ProfileDto();
+//            regionLangDto.setId(regionEntity.getId());
+//            switch (lana) {
+//                case UZ -> regionLangDto.setName(regionEntity.getNameUz());
+//                case RU -> regionLangDto.setName(regionEntity.getNameRu());
+//                case EN -> regionLangDto.setName(regionEntity.getNameEn());
+//            }
+//            profileLangDtoList.add(regionLangDto);
+//
+//        }
+//        return regionLangDtoList;
+//    }
 }
 
