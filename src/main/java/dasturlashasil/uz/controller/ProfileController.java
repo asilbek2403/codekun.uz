@@ -5,9 +5,11 @@ import dasturlashasil.uz.Dto.profile.ProfileDto;
 import dasturlashasil.uz.Dto.regionD.RegionLangDto;
 import dasturlashasil.uz.Enums.LanguageList;
 import dasturlashasil.uz.service.ProfileService;
+import dasturlashasil.uz.util.PageUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,17 +28,16 @@ public class ProfileController {
         return ResponseEntity.ok(profileService.create(dto));
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<ProfileDto>
-    update(@Valid @RequestBody ProfileDto dto) {
-        return ResponseEntity.ok(profileService.create(dto));
+    @PutMapping("/update/id/{id}")
+    public ResponseEntity<ProfileDto> update ( @PathVariable Integer id, @Valid @RequestBody ProfileDto dto) {
+        return ResponseEntity.ok(profileService.update(id,dto));
     }
 
     @GetMapping("/getlist")
     public ResponseEntity<Page<ProfileDto>>
     getAllProfiles(@RequestParam(defaultValue = "1") int page,
                    @RequestParam(defaultValue = "3") int size) {
-        Page<ProfileDto> profilePage = profileService.getAllProfiles(page, size);
+        Page<ProfileDto> profilePage = profileService.getAllProfiles(PageUtil.page(page), size);
         return ResponseEntity.ok(profilePage);
     }
 
@@ -62,5 +63,13 @@ public class ProfileController {
 //        List<ProfileDto> list = profileService.getAllLang(language);
 //        return ResponseEntity.ok(list);
 //    }
+
+
+    @GetMapping("pagination")
+    public ResponseEntity<PageImpl<ProfileDto>> pagination(
+            @RequestParam   (value = "page" , defaultValue = "1") int page,
+            @RequestParam   (value = "size" ,defaultValue = "2") int size) {
+        return ResponseEntity.ok(profileService.pagination(PageUtil.page(page), size));
+    }
 
 }

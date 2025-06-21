@@ -2,14 +2,11 @@ package dasturlashasil.uz.service;
 
 
 import dasturlashasil.uz.Dto.profile.ProfileDto;
-import dasturlashasil.uz.Dto.profile.ProfileUpdateDto;
-import dasturlashasil.uz.Dto.regionD.RegionLangDto;
-import dasturlashasil.uz.Enums.LanguageList;
 import dasturlashasil.uz.Enums.ProfileStatusEnum;
 import dasturlashasil.uz.entities.ProfileEntity;
-import dasturlashasil.uz.entities.RegionEntity;
 import dasturlashasil.uz.exceptons.AppBadException;
 import dasturlashasil.uz.repository.ProfileRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -58,7 +55,7 @@ public class ProfileService {
     }
 
 
-    public ProfileDto update(Integer id, ProfileUpdateDto dto) {
+    public ProfileDto update(Integer id, @Valid ProfileDto dto) {
         ProfileEntity entity = get(id);
         // check username exists
         Optional<ProfileEntity> usernameOptional = profileRepository.findByUsernameAndVisibleIsTrue(dto.getUsername());
@@ -161,5 +158,18 @@ public class ProfileService {
 //        }
 //        return regionLangDtoList;
 //    }
+
+
+    public PageImpl<ProfileDto> pagination(int page, int size) {
+        Pageable pageable = PageRequest.of(page,size,Sort.by("createdDate").descending());
+        Page<ProfileEntity> result = profileRepository.findAllWithRoles(pageable);
+
+        List<ProfileDto> dtoList = new ArrayList<>();
+        for(ProfileEntity profile : result.getContent() ){
+            dtoList.add(toDTO(profile));}
+        return new PageImpl<>(dtoList,pageable,result.getTotalElements());
+        }
+
+
 }
 

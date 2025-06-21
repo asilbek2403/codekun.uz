@@ -1,5 +1,6 @@
 package dasturlashasil.uz.Dto.profile;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import dasturlashasil.uz.Enums.ProfileRoleEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProfileDto {
 
     private Integer id;

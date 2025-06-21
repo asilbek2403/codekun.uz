@@ -4,6 +4,7 @@ import dasturlashasil.uz.entities.ProfileEntity;
 import dasturlashasil.uz.entities.RegionEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -20,5 +21,8 @@ public interface ProfileRepository extends CrudRepository<ProfileEntity, Integer
     Page<ProfileEntity> findAllByVisibleTrue(Pageable pageable);
 
     List<ProfileEntity> findAllByVisibleTrue();
+
+    @Query("From ProfileEntity p inner join fetch p.roleList where p.visible = true")
+    Page<ProfileEntity> findAllWithRoles(Pageable pageable);
 
 }
