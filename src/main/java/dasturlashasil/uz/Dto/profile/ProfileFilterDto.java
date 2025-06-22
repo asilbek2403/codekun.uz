@@ -1,4 +1,4 @@
-package dasturlashasil.uz.Dto;
+package dasturlashasil.uz.Dto.profile;
 
 import dasturlashasil.uz.Enums.ProfileRoleEnum;
 import lombok.Getter;
