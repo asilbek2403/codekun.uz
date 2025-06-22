@@ -29,6 +29,7 @@ public class ProfileEntity {
     @Column
     private String password;
     @Column
+    @Enumerated(EnumType.STRING)
     private ProfileStatusEnum profileStatus=ProfileStatusEnum.ACTIVE;
     @Column
     private String photo_id;

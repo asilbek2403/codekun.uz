@@ -1,6 +1,7 @@
 package dasturlashasil.uz.service;
 
 
+import dasturlashasil.uz.Dto.profile.ProfileFilterDto;
 import dasturlashasil.uz.Dto.profile.ProfileDto;
 import dasturlashasil.uz.Enums.ProfileStatusEnum;
 import dasturlashasil.uz.entities.ProfileEntity;
@@ -9,6 +10,7 @@ import dasturlashasil.uz.repository.ProfileRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,8 +26,8 @@ public class ProfileService {
 //    @Autowired
 //    private ProfileCustomRepository profileCustomRepository;
 
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public ProfileDto create(ProfileDto profile) {
         Optional<ProfileEntity> optional = profileRepository.findByUsernameAndVisibleIsTrue(profile.getUsername());
@@ -35,9 +37,9 @@ public class ProfileService {
         ProfileEntity entity = new ProfileEntity();
         entity.setName(profile.getName());
         entity.setSurname(profile.getSurname());
-        entity.setPassword(profile.getPassword());
+//        entity.setPassword(profile.getPassword());// bu ByCrypt siz hold
 
-//        entity.setPassword(bCryptPasswordEncoder.encode(profile.getPassword()));
+        entity.setPassword(bCryptPasswordEncoder.encode(profile.getPassword()));
         // TODO MD5/ByCript
 
         entity.setUsername(profile.getUsername());
@@ -74,6 +76,22 @@ public class ProfileService {
         response.setRoleList(dto.getRoleList());
         return response;
     }
+
+
+
+
+
+
+    //v2 P
+    public List<ProfileDto> filterA(ProfileFilterDto filterDto , int page, int size){
+        return null;
+    }
+//    public PageImpl<ProfileDto> filter(ProfileFilterDto filterDTO, int page, int size) {
+//        FilterResultDto<Object[]> result = profileCustomRepository.filter(filterDTO, page, size);
+//        List<ProfileDTO> profileDTOList = new LinkedList<>();
+//        result.getContent().forEach(entity -> profileDTOList.add(toDTO(entity)));
+//        return new PageImpl<>(profileDTOList, PageRequest.of(page, size), result.getTotal());
+//    }
 
     public ProfileDto toDTO(ProfileEntity entity) {
         ProfileDto dto = new ProfileDto();

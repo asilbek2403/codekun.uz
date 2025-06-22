@@ -33,6 +33,12 @@ public class ProfileRoleService {
     // old -> "ROLE_USER", "ROLE_ADMIN"
     // new -> "ROLE_USER", "ROLE_MODERATOR"
 
+//    public void merges(Integer profileId,List<ProfileRoleEnum> newList){
+//        List<ProfileRoleEnum> oldListc = profileRoleRepository.getRoleListByProfileId(profileId);
+//        newList.stream().filter(a-> !oldListc.contains(a)).forEach(f -> create(profileId, f));//create Role Plus qiladi
+//        oldListc.stream().filter(ket-> !newList.contains(ket)).forEach(d-> profileRoleRepository.deleteByIdAndRoleEnum(profileId,d));
+//    }
+
     public void create(Integer profileId, ProfileRoleEnum role) {
         ProfileRoleEntity entity = new ProfileRoleEntity();
         entity.setProfileId(profileId);
@@ -42,6 +48,9 @@ public class ProfileRoleService {
 
 
 
+    public void deleteRolesByProfileId(Integer profileId) {
+        profileRoleRepository.deleteByProfileId(profileId);
+    }
 
 
 
