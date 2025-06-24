@@ -22,11 +22,11 @@ public class EmailHistoryEntity {
     @Column(name="to_account")
     private String toAccount ;
 
-    @Column(name="body")
+    @Column(name="body" , columnDefinition = "text")
     private String body ;
 
     @Column(name="code")
-    private String code ;
+    private Integer code ;
 
     @Column(name="created_date")
     @CreationTimestamp//time avtomatik bor
