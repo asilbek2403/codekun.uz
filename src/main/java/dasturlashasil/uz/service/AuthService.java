@@ -2,12 +2,16 @@ package dasturlashasil.uz.service;
 
 
 import dasturlashasil.uz.Dto.auth.RegistrationDto;
+import dasturlashasil.uz.Dto.jwtdto.JWTDto;
 import dasturlashasil.uz.Enums.ProfileRoleEnum;
 import dasturlashasil.uz.Enums.ProfileStatusEnum;
 import dasturlashasil.uz.entities.ProfileEntity;
 import dasturlashasil.uz.exceptons.AppBadException;
 import dasturlashasil.uz.repository.ProfileRepository;
-import dasturlashasil.uz.repository.ProfileRoleRepository;
+import dasturlashasil.uz.service.email.EmailHistoryService;
+import dasturlashasil.uz.util.JWTUtil;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,11 +31,12 @@ public class AuthService {
     @Autowired
     private ProfileRoleService profileRoleService;//serviceda rollarni create qilar edik
 
-
-
-
     @Autowired
     private EmailSenderService emailSenderService;
+
+    @Autowired
+    private EmailHistoryService emailHistoryService;
+
 
     public String registration ( RegistrationDto dto) {
         //validation >> DTo
@@ -61,16 +66,51 @@ public class AuthService {
             //save
             //send sms
 
-        emailSenderService.sendSimpleMessage("Registrations Sinove" , " Code SMS : 1234",
-                dto.getUsername());
-            //create profile roles ***
-            profileRoleService.create(newProfileEntity.getId(), ProfileRoleEnum.ROLE_USER);
+//        emailSenderService.sendSimpleMessage("Registrations Sinove" , " Code SMS : 1234",
+//                dto.getUsername());
 
-        return "success kodi bordi toping ";
+
+        //create profile roles ***
+            profileRoleService.create(newProfileEntity.getId(), ProfileRoleEnum.ROLE_USER);//send
+
+        emailSenderService.sendRegistrationEmail(newProfileEntity.getUsername());// user emailini beraib yubor
+
+        return "success kodi bordi toping ";//respons
 
     }
 
+//code accountda bormi
+public String regEmailVerification(String token) {
+    JWTDto jwtDTO = null;
+    try {
+        jwtDTO = JWTUtil.decodeRegistrationToken(token);
+    } catch (ExpiredJwtException e) {
+        throw new AppBadException("JWT Expired");
+    } catch (JwtException e) {
+        throw new AppBadException("JWT Not Valid");
+    }
 
 
+    String username = jwtDTO.getUsername();
+
+        Optional<ProfileEntity> verProfile = profileRepository.findByUsernameAndVisibleIsTrue(username);
+        if(verProfile.isEmpty()) {
+            throw new AppBadException("Username not Found");}
+
+        ProfileEntity profile = verProfile.get();
+        if(!profile.getProfileStatus().equals(ProfileStatusEnum.NOT_ACTIVE)){
+            throw new AppBadException("Username int wrong status");}
+
+//
+        boolean emailYed = emailHistoryService.isSmsSendToAccount(username,jwtDTO.getCode());
+//check sms code to email
+        if(emailYed){
+           profile.setProfileStatus(ProfileStatusEnum.ACTIVE);
+           profileRepository.save(profile);
+           return "Verification successfully completed OK!";
+        }
+        throw new AppBadException("Not Completed");
+
+    }
 
 }
