@@ -3,19 +3,22 @@ package dasturlashasil.uz.service;
 
 import dasturlashasil.uz.Dto.profile.ProfileFilterDto;
 import dasturlashasil.uz.Dto.profile.ProfileDto;
+import dasturlashasil.uz.Enums.ProfileRoleEnum;
 import dasturlashasil.uz.Enums.ProfileStatusEnum;
 import dasturlashasil.uz.entities.ProfileEntity;
 import dasturlashasil.uz.exceptons.AppBadException;
+import dasturlashasil.uz.repository.ProfileCustomRepository;
 import dasturlashasil.uz.repository.ProfileRepository;
+import dasturlashasil.uz.sms.FilterResultDto;
+import dasturlashasil.uz.util.MapperUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfileService {
@@ -23,8 +26,8 @@ public class ProfileService {
     private ProfileRepository profileRepository;
     @Autowired
     private ProfileRoleService profileRoleService;
-//    @Autowired
-//    private ProfileCustomRepository profileCustomRepository;
+    @Autowired
+    private ProfileCustomRepository profileCustomRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -83,15 +86,14 @@ public class ProfileService {
 
 
     //v2 P
-    public List<ProfileDto> filterA(ProfileFilterDto filterDto , int page, int size){
-        return null;
-    }
-//    public PageImpl<ProfileDto> filter(ProfileFilterDto filterDTO, int page, int size) {
-//        FilterResultDto<Object[]> result = profileCustomRepository.filter(filterDTO, page, size);
-//        List<ProfileDTO> profileDTOList = new LinkedList<>();
-//        result.getContent().forEach(entity -> profileDTOList.add(toDTO(entity)));
-//        return new PageImpl<>(profileDTOList, PageRequest.of(page, size), result.getTotal());
-//    }
+    public PageImpl<ProfileDto> filter(ProfileFilterDto filterDTO, int page, int size) {
+        FilterResultDto<Object[]> result = profileCustomRepository.filter(filterDTO, page, size);
+        List<ProfileDto> profileDTOList = new LinkedList<>();
+        result.getContent().forEach(entity -> profileDTOList.add(toDTO(entity)));
+        return new PageImpl<>(profileDTOList, PageRequest.of(page, size), result.getTotal());
+    }// endi filter uvchunResultDto
+
+
 
     public ProfileDto toDTO(ProfileEntity entity) {
         ProfileDto dto = new ProfileDto();
@@ -100,6 +102,29 @@ public class ProfileService {
         dto.setSurname(entity.getSurname());
         dto.setUsername(entity.getUsername());
         dto.setCreatedDate(entity.getCreatedDate());
+        return dto;
+    }
+
+    public ProfileDto toDTO(Object[] mapper) {
+        ProfileDto dto = new ProfileDto();
+        dto.setId((Integer) mapper[0]);
+        dto.setName((String) mapper[1]);
+        dto.setSurname((String) mapper[2]);
+        dto.setUsername((String) mapper[3]);
+        if (mapper[4] != null) {
+            dto.setStatus(ProfileStatusEnum.valueOf((String) mapper[4]));
+        }
+        dto.setCreatedDate(MapperUtil.localDateTime(mapper[5]));
+        // String[] → List<ProfileRoleEnum>
+        String[] roles = (String[]) mapper[6];
+        if (roles != null) {
+            List<ProfileRoleEnum> roleList = Arrays.stream(roles)
+                    .map(ProfileRoleEnum::valueOf)
+                    .collect(Collectors.toList());
+            dto.setRoleList(roleList);
+        } else {
+            dto.setRoleList(Collections.emptyList());
+        }
         return dto;
     }
 

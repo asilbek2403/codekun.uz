@@ -2,6 +2,7 @@ package dasturlashasil.uz.Dto.profile;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dasturlashasil.uz.Enums.ProfileRoleEnum;
+import dasturlashasil.uz.Enums.ProfileStatusEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -33,6 +34,10 @@ public class ProfileDto {
     private List<ProfileRoleEnum> roleList;
 
     private LocalDateTime createdDate;
+    //filterda kerak
+
+    private ProfileStatusEnum status;
+
     private String photoId;
 
 }

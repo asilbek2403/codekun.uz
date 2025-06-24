@@ -2,6 +2,7 @@ package dasturlashasil.uz.controller;
 
 
 import dasturlashasil.uz.Dto.profile.ProfileDto;
+import dasturlashasil.uz.Dto.profile.ProfileFilterDto;
 import dasturlashasil.uz.Dto.regionD.RegionLangDto;
 import dasturlashasil.uz.Enums.LanguageList;
 import dasturlashasil.uz.service.ProfileService;
@@ -65,11 +66,19 @@ public class ProfileController {
 //    }
 
 
-    @GetMapping("pagination")
+    @GetMapping("pagination")//user uchun ekan
     public ResponseEntity<PageImpl<ProfileDto>> pagination(
             @RequestParam   (value = "page" , defaultValue = "1") int page,
             @RequestParam   (value = "size" ,defaultValue = "2") int size) {
         return ResponseEntity.ok(profileService.pagination(PageUtil.page(page), size));
+    }
+
+
+    @GetMapping("/filter")
+    public ResponseEntity<PageImpl<ProfileDto>> filter( @RequestBody ProfileFilterDto profileFilterDto ,
+                                                        @RequestParam ( value = "page",defaultValue = "1") int page ,
+                                                        @RequestParam (value = "size" , defaultValue = "3") int size){
+    return ResponseEntity.ok(profileService.filter(profileFilterDto,page-1,size));
     }
 
 }
