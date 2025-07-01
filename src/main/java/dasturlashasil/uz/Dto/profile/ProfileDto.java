@@ -37,7 +37,7 @@ public class ProfileDto {
     //filterda kerak
 
     private ProfileStatusEnum status;
-
+    private String jwt;
     private String photoId;
 
 }

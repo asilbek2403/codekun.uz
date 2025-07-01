@@ -1,6 +1,7 @@
 package dasturlashasil.uz.util;
 
 import dasturlashasil.uz.Dto.jwtdto.JWTDto;
+import dasturlashasil.uz.Enums.ProfileRoleEnum;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -9,6 +10,7 @@ import io.jsonwebtoken.security.Keys;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class JWTUtil {
@@ -20,7 +22,7 @@ public class JWTUtil {
     /**
      * General
      */
-    public static String encode(String username, String role) {
+    public static String encode(String username, List<ProfileRoleEnum> role) {
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("username", username);
         extraClaims.put("role", role);
@@ -76,6 +78,9 @@ public class JWTUtil {
                 .getPayload();
         String username = claims.getSubject();
         Integer code = (Integer) claims.get("code");
+//        Object codeObj = claims.get("code");
+//        Integer code = Integer.valueOf(codeObj.toString());
+
         JWTDto jwtDTO = new JWTDto();
         jwtDTO.setUsername(username);
         jwtDTO.setCode(code);

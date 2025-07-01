@@ -1,4 +1,4 @@
-package dasturlashasil.uz.sms;
+package dasturlashasil.uz.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

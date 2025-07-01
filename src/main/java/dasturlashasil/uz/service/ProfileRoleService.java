@@ -53,9 +53,9 @@ public class ProfileRoleService {
     }
 
 
-
-
-
+    public List<ProfileRoleEnum> getByProfileId(Integer id) {
+        return profileRoleRepository.getRoleListByProfileId(id);
+    }
 }
 
 

@@ -9,7 +9,7 @@ import dasturlashasil.uz.entities.ProfileEntity;
 import dasturlashasil.uz.exceptons.AppBadException;
 import dasturlashasil.uz.repository.ProfileCustomRepository;
 import dasturlashasil.uz.repository.ProfileRepository;
-import dasturlashasil.uz.sms.FilterResultDto;
+import dasturlashasil.uz.Dto.FilterResultDto;
 import dasturlashasil.uz.util.MapperUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

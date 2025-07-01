@@ -1,8 +1,7 @@
 package dasturlashasil.uz.repository;
 
 import dasturlashasil.uz.Dto.profile.ProfileFilterDto;
-import dasturlashasil.uz.Dto.profile.ProfileDto;
-import dasturlashasil.uz.sms.FilterResultDto;
+import dasturlashasil.uz.Dto.FilterResultDto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
