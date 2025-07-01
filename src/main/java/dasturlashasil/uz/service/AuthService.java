@@ -1,17 +1,21 @@
 package dasturlashasil.uz.service;
 
 
+import dasturlashasil.uz.Dto.auth.AuthorizationDto;
 import dasturlashasil.uz.Dto.auth.RegistrationDto;
 import dasturlashasil.uz.Dto.jwtdto.JWTDto;
+import dasturlashasil.uz.Dto.profile.ProfileDto;
 import dasturlashasil.uz.Enums.ProfileRoleEnum;
 import dasturlashasil.uz.Enums.ProfileStatusEnum;
 import dasturlashasil.uz.entities.ProfileEntity;
 import dasturlashasil.uz.exceptons.AppBadException;
 import dasturlashasil.uz.repository.ProfileRepository;
 import dasturlashasil.uz.service.email.EmailHistoryService;
+import dasturlashasil.uz.sms.SmsSendService;
 import dasturlashasil.uz.util.JWTUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,6 +40,8 @@ public class AuthService {
 
     @Autowired
     private EmailHistoryService emailHistoryService;
+    @Autowired
+    private SmsSendService smsSendService;
 
 
     public String registration ( RegistrationDto dto) {
@@ -73,8 +79,8 @@ public class AuthService {
         //create profile roles ***
             profileRoleService.create(newProfileEntity.getId(), ProfileRoleEnum.ROLE_USER);//send
 
-        emailSenderService.sendRegistrationEmail(newProfileEntity.getUsername());// user emailini beraib yubor
-
+        emailSenderService.sendRegistrationStyledEmail(newProfileEntity.getUsername());// user emailini beraib yubor
+        smsSendService.sendRegistrationSms(newProfileEntity.getUsername());//sms
         return "success kodi bordi toping ";//respons
 
     }
@@ -112,5 +118,33 @@ public String regEmailVerification(String token) {
         throw new AppBadException("Not Completed");
 
     }
+
+    public ProfileDto login( AuthorizationDto dto) {
+        Optional<ProfileEntity> profileOptional = profileRepository.findByUsernameAndVisibleIsTrue(dto.getUsername());
+        if(profileOptional.isEmpty()) {
+            throw new AppBadException("Username or password wrong");
+        }
+        ProfileEntity profile = profileOptional.get();
+        if( !bCryptPasswordEncoder.matches(dto.getPassword(), profile.getPassword())) {
+            throw new AppBadException("username or password Wrong");
+        }
+
+        if( !profile.getProfileStatus().equals(ProfileStatusEnum.ACTIVE)) {
+            throw new AppBadException("Username in wrong  status");
+        }
+        ProfileDto responseProfileDto = new ProfileDto();
+        responseProfileDto.setName(profile.getName());
+        responseProfileDto.setSurname(profile.getSurname());
+        responseProfileDto.setUsername(profile.getUsername());
+//        responseProfileDto.setPassword((dto.getPassword()));
+        responseProfileDto.setStatus(profile.getProfileStatus());
+        responseProfileDto.setRoleList(profileRoleService.getByProfileId(profile.getId()));
+//        profileRoleService.getByProfileId(responseProfileDto.getId());
+        responseProfileDto.setJwt(JWTUtil.encode(profile.getUsername(),responseProfileDto.getRoleList()));
+        return responseProfileDto;
+    }
+
+
+
 
 }
