@@ -32,9 +32,9 @@ public class EmailSenderService {
 //        String body= "Sms code Click http://localhost:8080/api/auth/registration/confirm/%s/%d" +smsCode;
         //v2
         String body= "Men Asilbekman  http://localhost:8080/api/auth/registration/email/verification/%s\n";
-        String codd="https:/github.com/asilbek2403/codekun.uz";
+//        String codd="https:/github.com/asilbek2403/codekun.uz";
         String jwtToken=  JWTUtil.encodeForRegistration(fromAccount,smsCode);//Jwt token Key bilan
-        body = String.format(body,jwtToken,codd);
+        body = String.format(body,jwtToken);
 
         sendSimpleMessage("Registrations Sinove --> " ,body,toAccount);
         emailHistoryService.create(body, smsCode, toAccount);
@@ -61,7 +61,7 @@ public class EmailSenderService {
                 "  text-decoration: none;\n" +
                 "  display: inline-block;\"\n" +
                 "   href=\"http://localhost:8081/api/v1/auth/registration/email/verification/%s\">Ro'yhatdan\n" +
-                "    o'tishni tugatish</a>\n" +
+                "    o'tishni tugatish </a>\n" +
                 "\n" +
                 "\n" +
                 "</body>\n" +
