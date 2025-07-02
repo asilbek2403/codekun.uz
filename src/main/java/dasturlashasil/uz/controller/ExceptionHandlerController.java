@@ -27,6 +27,11 @@ public class ExceptionHandlerController extends ResponseEntityExceptionHandler {
 //        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 //    }
 
+    @ExceptionHandler({RuntimeException.class} )
+    public ResponseEntity handle(RuntimeException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
 
 
 
