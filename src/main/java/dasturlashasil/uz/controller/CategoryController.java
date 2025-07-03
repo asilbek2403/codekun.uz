@@ -18,28 +18,28 @@ public class CategoryController {
     @Autowired
     private CategoryService service;
 
-    @PostMapping("/create")
-    public ResponseEntity<CategoryDto> create(@Valid @RequestBody CategoryDto dto) {
+    @PostMapping("/admin/create")
+    public ResponseEntity<CategoryDto> createZ(@Valid @RequestBody CategoryDto dto) {
         return ResponseEntity.ok(service.create(dto));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/admin/update/{id}")
     public ResponseEntity<CategoryDto> update(@PathVariable("id") Integer id, @RequestBody CategoryDto newDto) {
         return ResponseEntity.ok(service.update(id, newDto));
     }
 
-    @DeleteMapping("/DeleteId/{id}")
+    @DeleteMapping("/admin/DeleteId/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable Integer id) {
         return ResponseEntity.ok(service.delete(id));
     }
 
-    @GetMapping("/getList")
+    @GetMapping("/admin/getList")
     public ResponseEntity<List<CategoryDto>> getAll() {
         return ResponseEntity.ok(service.getAllByOrder());
     }
 
     // /api/v1/category/lang?language=uz
-    @GetMapping("/lang")
+    @GetMapping("/lang")                //(PUBLIC)
     public ResponseEntity<List<CategoryDto>> getByLang(@RequestHeader(name = "Accept-Language", defaultValue = "uz") LanguageList language) {
         return ResponseEntity.ok(service.getAllByLang(language));
     }
