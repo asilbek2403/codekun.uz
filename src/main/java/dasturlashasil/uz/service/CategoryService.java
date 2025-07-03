@@ -24,7 +24,7 @@ public class CategoryService {
     public CategoryDto create(CategoryDto dto) {
         Optional<CategoryEntity> optional = repository.findByCategoryKey(dto.getCategoryKey());
         if (optional.isPresent()) {
-            return null;
+            throw new AppBadException("Category key already exist");
         }
         CategoryEntity entity = new CategoryEntity();
         entity.setOrderNumber(dto.getOrderNumber());
