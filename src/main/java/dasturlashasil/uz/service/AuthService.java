@@ -79,8 +79,8 @@ public class AuthService {
         //create profile roles ***
             profileRoleService.create(newProfileEntity.getId(), ProfileRoleEnum.ROLE_USER);//send
 
-        emailSenderService.sendRegistrationStyledEmail(newProfileEntity.getUsername());// user emailini beraib yubor
-        smsSendService.sendRegistrationSms(newProfileEntity.getUsername());//sms
+//        emailSenderService.sendRegistrationStyledEmail(newProfileEntity.getUsername());// user emailini beraib yubor
+//        smsSendService.sendRegistrationSms(newProfileEntity.getUsername());//sms
         return "success kodi bordi toping ";//respons
 
     }
@@ -135,11 +135,9 @@ public String regEmailVerification(String token) {
         ProfileDto responseProfileDto = new ProfileDto();
         responseProfileDto.setName(profile.getName());
         responseProfileDto.setSurname(profile.getSurname());
-        responseProfileDto.setUsername(profile.getUsername());
-//        responseProfileDto.setPassword((dto.getPassword()));
+        responseProfileDto.setUsername(profile.getUsername());//        responseProfileDto.setPassword((dto.getPassword()));
         responseProfileDto.setStatus(profile.getProfileStatus());
-        responseProfileDto.setRoleList(profileRoleService.getByProfileId(profile.getId()));
-//        profileRoleService.getByProfileId(responseProfileDto.getId());
+        responseProfileDto.setRoleList(profileRoleService.getByProfileId(profile.getId()));//  profileRoleService.getByProfileId(responseProfileDto.getId());
         responseProfileDto.setJwt(JWTUtil.encode(profile.getUsername(),responseProfileDto.getRoleList()));
         return responseProfileDto;
     }
