@@ -23,6 +23,8 @@ public class JWTUtil {
      * General
      */
     public static String encode(String username, List<ProfileRoleEnum> role) {
+        //Securityda >>> RoleLsitMi? (RoleAdmin, RoleUser,
+
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("username", username);
         extraClaims.put("role", role);
