@@ -23,18 +23,24 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
-    @PostMapping("/create")
+    @PostMapping("/admin/create")
     public ResponseEntity<ProfileDto>
     create(@Valid @RequestBody ProfileDto dto) {
         return ResponseEntity.ok(profileService.create(dto));
     }
 
-    @PutMapping("/update/id/{id}")
+    @PutMapping("/admin/update/id/{id}")
     public ResponseEntity<ProfileDto> update ( @PathVariable Integer id, @Valid @RequestBody ProfileDto dto) {
         return ResponseEntity.ok(profileService.update(id,dto));
+    } // ADMIN
+
+    @PutMapping("/updateDetails")           // ANY Roldagilar qilaoldi
+    public ResponseEntity<ProfileDto> updateDetail ( ) {
+        return null;
     }
 
-    @GetMapping("/getlist")
+    // ADMIN
+    @GetMapping("/admin/getlist")
     public ResponseEntity<Page<ProfileDto>>
     getAllProfiles(@RequestParam(defaultValue = "1") int page,
                    @RequestParam(defaultValue = "3") int size) {
@@ -47,7 +53,8 @@ public class ProfileController {
 //        return ResponseEntity.ok(service.update(id, newDto));
 //    }
 //
-    @DeleteMapping("/{id}")
+
+    @DeleteMapping("/admin/{id}")
     public ResponseEntity<Boolean>
     delete(@PathVariable Integer id) {
         return ResponseEntity.ok(profileService.delete(id));
@@ -65,20 +72,23 @@ public class ProfileController {
 //        return ResponseEntity.ok(list);
 //    }
 
-
-    @GetMapping("pagination")//user uchun ekan
+    // ADMIN
+    @GetMapping("/admin/pagination")//user uchun ekan
     public ResponseEntity<PageImpl<ProfileDto>> pagination(
             @RequestParam   (value = "page" , defaultValue = "1") int page,
             @RequestParam   (value = "size" ,defaultValue = "2") int size) {
         return ResponseEntity.ok(profileService.pagination(PageUtil.page(page), size));
     }
 
-
-    @GetMapping("/filter")
+    // ADMIN
+    @GetMapping("/admin/filter")
     public ResponseEntity<PageImpl<ProfileDto>> filter( @RequestBody ProfileFilterDto profileFilterDto ,
                                                         @RequestParam ( value = "page",defaultValue = "1") int page ,
                                                         @RequestParam (value = "size" , defaultValue = "3") int size){
     return ResponseEntity.ok(profileService.filter(profileFilterDto,page-1,size));
     }
+
+
+
 
 }
