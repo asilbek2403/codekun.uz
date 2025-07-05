@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 public class AttachEntity {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY) // shart emas
     private String id;
 
     @Column(name = "path")
