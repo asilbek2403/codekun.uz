@@ -45,6 +45,12 @@ public class ProfileEntity {
     @OneToMany(mappedBy = "profile") //  to‘g‘risi shu
     private List<ProfileRoleEntity> roleList;
 
+    //Aarticleda mappedby bilan ishlatamiz
+    @OneToMany(mappedBy = "moderator")
+    private List<ArticleEntity> moderatorArticleList; //  profile.id = article.moderator_id
+
+    @OneToMany(mappedBy = "published")
+    private List<ArticleEntity> publisherArticleList; //  profile.id = article.published_id
 
 }
 
