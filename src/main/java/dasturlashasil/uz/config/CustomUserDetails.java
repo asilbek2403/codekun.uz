@@ -36,18 +36,18 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return roles;//debugger da
     }
 
 
     @Override
     public String getPassword() {
-        return password;
+        return password;//debugger da
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return username;//debugger da
     }
 
 
@@ -73,4 +73,7 @@ public class CustomUserDetails implements UserDetails {
     }
 
 
+    public Integer getId() {
+        return id;
+    }
 }
