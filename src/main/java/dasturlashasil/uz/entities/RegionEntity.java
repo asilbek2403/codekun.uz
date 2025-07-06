@@ -3,6 +3,7 @@ package dasturlashasil.uz.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
 
@@ -26,6 +27,7 @@ public class RegionEntity {
 
     private Boolean visible;
 
+//    private LocalDate createdDate = LocalDate.now();  // DTO bilan mos
     private LocalDate createdDate;  // DTO bilan mos
 
     private String nameUz;
