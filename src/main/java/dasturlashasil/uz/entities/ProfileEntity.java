@@ -49,7 +49,7 @@ public class ProfileEntity {
     @OneToMany(mappedBy = "moderator")
     private List<ArticleEntity> moderatorArticleList; //  profile.id = article.moderator_id
 
-    @OneToMany(mappedBy = "published")
+    @OneToMany(mappedBy = "publisher")
     private List<ArticleEntity> publisherArticleList; //  profile.id = article.published_id
 
 }
