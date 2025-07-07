@@ -3,6 +3,7 @@ package dasturlashasil.uz.config;
 
 import dasturlashasil.uz.Enums.ProfileRoleEnum;
 import dasturlashasil.uz.entities.ProfileEntity;
+import dasturlashasil.uz.exceptons.AppBadException;
 import dasturlashasil.uz.repository.ProfileRepository;
 import dasturlashasil.uz.repository.ProfileRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +35,15 @@ public class CustomUserDetailsService implements UserDetailsService {
         ProfileEntity profile = optional.get();//Buni ustozim korib tekshirdi Yani BAsic bilan HasRole
         List<ProfileRoleEnum> roleEntities = profileRoleRepository.getRoleListByProfileId(profile.getId());
 
-        return new CustomUserDetails(profile.getId(),
+
+        return new CustomUserDetails(
+                profile.getId(),
                 profile.getUsername(),
                 profile.getPassword(),
                 profile.getProfileStatus(),
-                roleEntities);
+                roleEntities        )   ;
 
     }
+
 
 }
