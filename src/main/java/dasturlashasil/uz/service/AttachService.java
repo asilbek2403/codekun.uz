@@ -7,6 +7,7 @@ import dasturlashasil.uz.entities.AttachEntity;
 import dasturlashasil.uz.exceptons.AppBadException;
 import dasturlashasil.uz.repository.AttachRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
@@ -71,6 +72,10 @@ import java.util.UUID;
 @Service
 public class AttachService{
 
+
+
+//    @Value("${server.url}")
+//    private String attachUrl;
 
     @Autowired
     private AttachRepository attachRepository;
@@ -272,7 +277,15 @@ public class AttachService{
 
 
 
-
+//kerakArticle uchun getImagge:
+public AttachDto openDTO(String id) {
+    String baseUrl = "http://localhost:8080"; // yoki https://yourdomain.com
+//     String attachUrl;
+    AttachDto attachDTO = new AttachDto();
+    attachDTO.setUrl(baseUrl+ "/kunuz/attach/open/" + id);
+    attachDTO.setId(id);
+    return attachDTO;
+}
 
 
 
