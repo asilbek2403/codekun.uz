@@ -21,7 +21,7 @@ public class ArticleEntity {
     @Column(name = "title" , columnDefinition = "text")
     private String title;
     @Column(name="description" , columnDefinition = "text")
-    private String descrption;
+    private String description;
     @Column(name="content" , columnDefinition = "text")
     private String content;
     @Column(name="shared_count")

@@ -17,6 +17,8 @@ public class ArticleDTO {
     private Long sharedCount;
 
     private String imageId;
+    private AttachDto image;
+
     private Integer regionId;
 
     private Integer moderatorId;
@@ -32,6 +34,7 @@ public class ArticleDTO {
 
     private List<CategoryDto> categoryList;
     private List<SectionDto> sectionList;
+
 
 
 }
