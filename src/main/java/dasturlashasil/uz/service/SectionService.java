@@ -6,6 +6,7 @@ import dasturlashasil.uz.Dto.SectionDto;
 import dasturlashasil.uz.Enums.LanguageList;
 import dasturlashasil.uz.entities.SectionEntity;
 import dasturlashasil.uz.exceptons.NotFoundException;
+import dasturlashasil.uz.mapperL.SectionMapper;
 import dasturlashasil.uz.repository.SectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class SectionService {
     private SectionRepository sectionRepository;
 
 
-    public SectionDto create(SectionDto dto){
+    public SectionDto create(SectionDto dto) {
         Optional<SectionEntity> optional = sectionRepository.findByOrderNumber(dto.getOrderNumber());
         if (optional.isPresent()) {
 //            throw new AppBadException("OrderNumber " + dto.getOrderNumber() + " already exist");
@@ -42,9 +43,9 @@ public class SectionService {
         return dto;
     }
 
-    public SectionDto update(Integer id, SectionDto newDto){
+    public SectionDto update(Integer id, SectionDto newDto) {
         Optional<SectionEntity> optional = sectionRepository.findById(id);
-        if (optional.isEmpty() || optional.get().getVisible() == Boolean.FALSE){
+        if (optional.isEmpty() || optional.get().getVisible() == Boolean.FALSE) {
             throw new NotFoundException("Section not found");
 
         }
@@ -76,7 +77,7 @@ public class SectionService {
         return dtos;
     }
 
-    public List<LangResponseDto> getAllbyLang(LanguageList lang){
+    public List<LangResponseDto> getAllbyLang(LanguageList lang) {
         Iterable<SectionEntity> iterable = sectionRepository.getAllByOrderSorted();
         List<LangResponseDto> dtos = new LinkedList<>();
         iterable.forEach(entity -> dtos.add(toLangResponseDto(lang, entity)));
@@ -96,11 +97,11 @@ public class SectionService {
         return dto;
     }
 
-    private LangResponseDto toLangResponseDto(LanguageList lang, SectionEntity entity){
+    private LangResponseDto toLangResponseDto(LanguageList lang, SectionEntity entity) {
         LangResponseDto dto = new LangResponseDto();
         dto.setId(entity.getId());
         dto.setKey(entity.getSectionKey());
-        switch (lang){
+        switch (lang) {
             case UZ:
                 dto.setName(entity.getNameUz());
                 break;
@@ -114,7 +115,18 @@ public class SectionService {
         return dto;
     }
 
-
+//9 ARTICLE byLang sectionlist
+    public List<SectionDto> getSectionListByArticleIdAndLang(String articleId, LanguageList lang) {
+        List<SectionMapper> iterable = sectionRepository.getSectionListByArticleIdAndLang(articleId, lang.name());
+        List<SectionDto> dtoList = new LinkedList<>();
+        iterable.forEach(mapper -> {
+            SectionDto dto = new SectionDto();
+            dto.setId(mapper.getId());
+            dto.setName(mapper.getName());
+            dto.setSectionKey(mapper.getSectionKey());
+            dtoList.add(dto);
+        });
+        return dtoList;
+    }
 
 }
-
