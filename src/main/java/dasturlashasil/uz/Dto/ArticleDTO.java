@@ -1,5 +1,6 @@
 package dasturlashasil.uz.Dto;
 
+import dasturlashasil.uz.Dto.regionD.RegionDto;
 import dasturlashasil.uz.Enums.ArticleStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,7 @@ public class ArticleDTO {
     private AttachDto image;
 
     private Integer regionId;
-
+    private RegionDto region;
     private Integer moderatorId;
 
     private Integer publisherId;
@@ -29,6 +30,7 @@ public class ArticleDTO {
 
     private Integer readTime; // in second
     private Integer viewCount; // in second
+    private Long likeCount;
     private LocalDateTime publishedDate;
 
 
