@@ -85,7 +85,7 @@ public class ProfileController {
     public ResponseEntity<PageImpl<ProfileDto>> filter( @RequestBody ProfileFilterDto profileFilterDto ,
                                                         @RequestParam ( value = "page",defaultValue = "1") int page ,
                                                         @RequestParam (value = "size" , defaultValue = "3") int size){
-    return ResponseEntity.ok(profileService.filter(profileFilterDto,page-1,size));
+        return ResponseEntity.ok(profileService.filter(profileFilterDto,page-1,size));
     }
 
 
