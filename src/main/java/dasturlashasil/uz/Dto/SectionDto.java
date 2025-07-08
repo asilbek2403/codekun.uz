@@ -36,5 +36,6 @@ public class SectionDto {
     private LocalDateTime createdDate;
 
     private String imageId;
+    private String name;
 }
 
