@@ -4,6 +4,7 @@ import dasturlashasil.uz.Dto.regionD.RegionDto;
 import dasturlashasil.uz.Dto.regionD.RegionLangDto;
 import dasturlashasil.uz.Enums.LanguageList;
 import dasturlashasil.uz.entities.RegionEntity;
+import dasturlashasil.uz.mapperL.RegionMapper;
 import dasturlashasil.uz.repository.RegionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -138,6 +139,21 @@ public class RegionService {
 
         }
         return regionLangDtoList;
+    }
+
+
+    public RegionDto getByIdAndLang(Integer id, LanguageList lang) {
+        Optional<RegionMapper> regionOp = regionRepository.getByIdAndLang(id,lang.name());
+        if (regionOp.isEmpty()) {
+            return null;
+        }
+        return regionOp.map(mapper -> {
+            RegionDto dto = new RegionDto();
+            dto.setId(mapper.getId());
+            dto.setName(mapper.getName());
+            dto.setKey(mapper.getKey());
+            return dto;
+        }).get();
     }
 
 
