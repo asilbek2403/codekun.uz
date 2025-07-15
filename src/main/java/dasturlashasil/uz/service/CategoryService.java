@@ -5,6 +5,7 @@ import dasturlashasil.uz.Dto.CategoryDto;
 import dasturlashasil.uz.Enums.LanguageList;
 import dasturlashasil.uz.entities.CategoryEntity;
 import dasturlashasil.uz.exceptons.AppBadException;
+import dasturlashasil.uz.mapperL.CategoryMapper;
 import dasturlashasil.uz.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -115,6 +116,21 @@ public class CategoryService {
         }
         return dto;
     }
+
+    public List<CategoryDto> getCategoryListByArticleIdAndLang(String articleId, LanguageList lang) {
+        List<CategoryMapper> iterable = repository.getCategoryListByArticleIdAndLang(articleId, lang.name());
+        List<CategoryDto> dtoList = new LinkedList<>();
+        iterable.forEach(mapper -> {
+            CategoryDto dto = new CategoryDto();
+            dto.setId(mapper.getId());
+            dto.setName(mapper.getName());
+            dto.setCategoryKey(mapper.getCategoryKey());
+            dtoList.add(dto);
+        });
+        return dtoList;
+    }
+
+
 }
 
 
