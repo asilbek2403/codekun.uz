@@ -110,6 +110,9 @@ public interface ArticleRepository extends CrudRepository<ArticleEntity,String> 
 
 
 
+    @Query(value = "UPDATE article SET like_count = COALESCE(like_count,0) + 1 WHERE id = ?1 RETURNING like_count", nativeQuery = true)
+    int incrementLikeCountAndGetLastLikeCount(String articleId);
+
 
 }
 //6
