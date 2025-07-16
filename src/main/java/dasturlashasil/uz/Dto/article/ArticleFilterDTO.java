@@ -1,4 +1,4 @@
-package dasturlashasil.uz.Dto;
+package dasturlashasil.uz.Dto.article;
 
 import lombok.Getter;
 import lombok.Setter;
