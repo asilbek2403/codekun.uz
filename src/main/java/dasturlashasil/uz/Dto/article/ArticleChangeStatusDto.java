@@ -1,4 +1,4 @@
-package dasturlashasil.uz.Dto;
+package dasturlashasil.uz.Dto.article;
 
 import dasturlashasil.uz.Enums.ArticleStatus;
 import jakarta.validation.constraints.NotNull;
