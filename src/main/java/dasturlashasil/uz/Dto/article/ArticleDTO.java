@@ -1,5 +1,8 @@
-package dasturlashasil.uz.Dto;
+package dasturlashasil.uz.Dto.article;
 
+import dasturlashasil.uz.Dto.AttachDto;
+import dasturlashasil.uz.Dto.CategoryDto;
+import dasturlashasil.uz.Dto.SectionDto;
 import dasturlashasil.uz.Dto.regionD.RegionDto;
 import dasturlashasil.uz.Enums.ArticleStatus;
 import lombok.Getter;
