@@ -1,5 +1,7 @@
-package dasturlashasil.uz.Dto;
+package dasturlashasil.uz.Dto.article;
 
+import dasturlashasil.uz.Dto.CategoryDto;
+import dasturlashasil.uz.Dto.SectionDto;
 import lombok.Getter;
 import lombok.Setter;
 
