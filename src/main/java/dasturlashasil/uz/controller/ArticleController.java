@@ -1,7 +1,7 @@
 package dasturlashasil.uz.controller;
 
 
-import dasturlashasil.uz.Dto.*;
+import dasturlashasil.uz.Dto.article.*;
 import dasturlashasil.uz.Enums.LanguageList;
 import dasturlashasil.uz.service.ArticleService;
 import dasturlashasil.uz.util.PageUtil;
