@@ -1,8 +1,8 @@
 package dasturlashasil.uz.service;
 
-import dasturlashasil.uz.Dto.ArticleCreateDto;
-import dasturlashasil.uz.Dto.ArticleDTO;
-import dasturlashasil.uz.Dto.ArticleFilterDTO;
+import dasturlashasil.uz.Dto.article.ArticleCreateDto;
+import dasturlashasil.uz.Dto.article.ArticleDTO;
+import dasturlashasil.uz.Dto.article.ArticleFilterDTO;
 import dasturlashasil.uz.Dto.FilterResultDto;
 import dasturlashasil.uz.Enums.ArticleStatus;
 import dasturlashasil.uz.Enums.LanguageList;
