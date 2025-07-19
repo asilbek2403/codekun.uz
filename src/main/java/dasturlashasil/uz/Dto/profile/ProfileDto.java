@@ -1,6 +1,7 @@
 package dasturlashasil.uz.Dto.profile;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import dasturlashasil.uz.Dto.AttachDto;
 import dasturlashasil.uz.Enums.ProfileRoleEnum;
 import dasturlashasil.uz.Enums.ProfileStatusEnum;
 import jakarta.validation.constraints.NotBlank;
@@ -38,6 +39,8 @@ public class ProfileDto {
 
     private ProfileStatusEnum status;
     private String jwt;
-    private String photoId;
+    private AttachDto photoId;
 
+    private String jwtC;
+//    private AttachDTO photo;
 }
