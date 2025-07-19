@@ -1,4 +1,4 @@
-package dasturlashasil.uz.Dto;
+package dasturlashasil.uz.Dto.article;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
