@@ -5,9 +5,11 @@ import dasturlashasil.uz.Dto.regionD.RegionDto;
 import dasturlashasil.uz.Dto.regionD.RegionLangDto;
 import dasturlashasil.uz.Enums.LanguageList;
 import dasturlashasil.uz.service.RegionService;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,6 +44,7 @@ public class RegionController {
 
     // 3. Delete (ADMIN)
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Boolean> delete(@PathVariable Integer id) {
         regionService.delete(id);
         return ResponseEntity.ok().build();
